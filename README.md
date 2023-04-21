@@ -14,7 +14,7 @@ and [vertex_create_buffer_from_buffer](https://manual.yoyogames.com/GameMaker_La
 See file [yamc.gml](utils/yamc.gml) for simple utility functions. The
 [utils](utils) folder also includes a shader that you can use as a base for your
 custom ones. If you are not familiar with shaders, you can also draw the models
-using GameMaker's built-in shaders with [lighting](manual.yoyogames.com/GameMaker_Language/GML_Reference/Drawing/Lighting/Lighting.htm),
+using GameMaker's built-in shaders with [lighting](https://manual.yoyogames.com/GameMaker_Language/GML_Reference/Drawing/Lighting/Lighting.htm),
 [fog](https://manual.yoyogames.com/GameMaker_Language/GML_Reference/Drawing/GPU_Control/gpu_set_fog.htm)
 etc. See [examples](examples) for little example projects.
 
