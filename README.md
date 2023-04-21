@@ -18,6 +18,10 @@ using GameMaker's built-in shaders with [lighting](https://manual.yoyogames.com/
 [fog](https://manual.yoyogames.com/GameMaker_Language/GML_Reference/Drawing/GPU_Control/gpu_set_fog.htm)
 etc. See [examples](examples) for little example projects.
 
+# Limitations
+* The entire model is collapsed into a single vertex buffer, therefore only models with a single texture/material are supported.
+* Animations are not supported.
+
 # Usage
 Run `yamc -h` to see help message with all arguments and their description.
 
