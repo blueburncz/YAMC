@@ -35,5 +35,4 @@ cmake --build . --config=Release
 
 # Links
 * [Assimp](https://github.com/assimp/assimp) - Used to load models.
-* [BBMOD](https://github.com/blueburncz/BBMOD) - More advanced tool with support \
-  for animated models and a huge library for advanced 3D rendering in GameMaker.
+* [BBMOD](https://github.com/blueburncz/BBMOD) - More advanced tool with support for animated models and a huge library for advanced 3D rendering in GameMaker.
