@@ -17,7 +17,7 @@
 #define MESSAGE_HELP \
 "Usage\n" \
 "\n" \
-"  yamc [-h] PATH_IN [PATH_OUT] [-c] [-f] [-i] [-n/-N] [-p] [-t] [-u] [-y] [-z]\n" \
+"  yamc [-h] PATH_IN [PATH_OUT] [-c/-C] [-f] [-i] [-n/-N] [-p] [-t] [-u] [-y] [-z]\n" \
 "\n" \
 "Arguments\n" \
 "\n" \
@@ -25,7 +25,10 @@
 "  PATH_IN  = The input file path.\n" \
 "  PATH_OUT = The output file path. Defaults to the input file path with \".bin\"\n" \
 "             file extension if not specified.\n" \
-"  -c       = Export vertex colors. White is used if the model has none.\n" \
+"  -c       = Export vertex colors. White is used if the model has none. Cannot\n" \
+"             be combined with -C!\n" \
+"  -C       = Bake material colors to vertex colors and export. Cannot be\n" \
+"             combined with -c!\n" \
 "  -f       = Flip texture coordinates on the Y axis.\n" \
 "  -i       = Invert vertex winding order. Default is clockwise for backfaces!\n" \
 "  -n       = Export normal vectors. If the model has none, generate flat\n" \
@@ -39,8 +42,8 @@
 "  -z       = Convert model to Z-up coordinate system. Uses counter-clockwise\n" \
 "             vertex winding order for backfaces!\n" \
 "\n" \
-"If you do not pass any arguments that affect vertex format, then arguments pNuc\n" \
-"are used, which make a model that is compatible with GM's built-in shaders."
+"If you do not pass any arguments that affect vertex format, arguments pNufC are\n" \
+"used. These make a model that is compatible with GM's built-in shaders."
 
 #define MESSAGE_MULTIPLE_MATERIALS \
 "WARNING: Model consists of multiple materials, but this tool collapses the\n" \
@@ -60,6 +63,7 @@ struct SConfig
 		WriteNormals = false;
 		WriteTextureCoords = false;
 		WriteColors = false;
+		WriteMaterialColors = false;
 		WriteTangents = false;
 		UpVector = EUpVector::NegativeY;
 		FlipUVs = false;
@@ -67,14 +71,28 @@ struct SConfig
 		Flags = 0;
 	}
 
-	bool WriteNormals = true;
-	bool WriteTextureCoords = true;
-	bool WriteColors = true;
-	bool WriteTangents = false;
-	EUpVector UpVector = EUpVector::NegativeY;
-	bool FlipUVs = false;
-	bool InvertWinding = false;
-	uint32_t Flags = 0;
+	void Default()
+	{
+		WriteNormals = true;
+		WriteTextureCoords = true;
+		WriteColors = false;
+		WriteMaterialColors = true;
+		WriteTangents = false;
+		UpVector = EUpVector::NegativeY;
+		FlipUVs = true;
+		InvertWinding = false;
+		Flags = 0;
+	}
+
+	bool WriteNormals;
+	bool WriteTextureCoords;
+	bool WriteColors;
+	bool WriteMaterialColors;
+	bool WriteTangents;
+	EUpVector UpVector;
+	bool FlipUVs;
+	bool InvertWinding;
+	uint32_t Flags;
 };
 
 template<typename OUT, typename IN>
@@ -142,13 +160,19 @@ inline float GetBitangentSign(
 	return (dot < 0.0f) ? -1.0f : 1.0f;
 }
 
-void WriteMesh(std::ofstream& _file, const aiMesh& _mesh, SConfig& _conf)
+void WriteMesh(std::ofstream& _file, const aiScene& _scene, const aiMesh& _mesh, SConfig& _conf)
 {
 	bool hasNormals = _mesh.HasNormals();
 	bool hasTextureCoords = _mesh.HasTextureCoords(0);
 	bool hasVertexColors = _mesh.HasVertexColors(0);
 	bool hasTangentsAndBitangents = _mesh.HasTangentsAndBitangents();
 	aiVector3D up(0.0f, 1.0f, 0.0f);
+
+	aiMaterial* material = _scene.mMaterials[_mesh.mMaterialIndex];
+	aiColor3D materialColor(1.0f, 1.0f, 1.0f);
+	material->Get(AI_MATKEY_COLOR_DIFFUSE, materialColor);
+	float materialOpacity = 1.0f;
+	material->Get(AI_MATKEY_OPACITY, materialOpacity);
 
 	for (uint32_t f = 0; f < _mesh.mNumFaces; ++f)
 	{
@@ -219,6 +243,16 @@ void WriteMesh(std::ofstream& _file, const aiMesh& _mesh, SConfig& _conf)
 					// std::cout << 0xFFFFFFFF << ", ";
 				}
 			}
+			else if (_conf.WriteMaterialColors)
+			{
+				uint32_t colorEncoded = 0
+					| ((uint32_t)(materialOpacity * 255.0f) << 24)
+					| ((uint32_t)(materialColor.b * 255.0f) << 16)
+					| ((uint32_t)(materialColor.g * 255.0f) << 8)
+					| ((uint32_t)(materialColor.r * 255.0f) << 0);
+				WriteSingle<uint32_t>(_file, colorEncoded);
+				// std::cout << colorEncoded << ", ";
+			}
 
 			// Tangent vector and bitangent sign
 			if (_conf.WriteTangents)
@@ -265,6 +299,7 @@ int main(int argc, const char** argv)
 		;
 
 	SConfig confDefault;
+	confDefault.Default();
 	confDefault.Flags = flagsCommon
 		| aiProcess_FindInvalidData
 		| aiProcess_GenSmoothNormals
@@ -281,6 +316,7 @@ int main(int argc, const char** argv)
 	bool foutOverride = false;
 	bool showHelpAndExit = false;
 	int generateNormals = 0;
+	int writeColors = 0;
 
 	for (int i = 1; i < argc; ++i)
 	{
@@ -293,8 +329,25 @@ int main(int argc, const char** argv)
 				switch (arg[j])
 				{
 				case 'c':
+					if (writeColors == 2)
+					{
+						std::cout << "ERROR: Cannot combine arguments c and C!" << std::endl;
+						return EXIT_FAILURE;
+					}
 					confCurrent = &confCustom;
 					confCurrent->WriteColors = true;
+					writeColors = 1;
+					break;
+
+				case 'C':
+					if (writeColors == 1)
+					{
+						std::cout << "ERROR: Cannot combine arguments c and C!" << std::endl;
+						return EXIT_FAILURE;
+					}
+					confCurrent = &confCustom;
+					confCurrent->WriteMaterialColors = true;
+					writeColors = 2;
 					break;
 
 				case 'f':
@@ -462,7 +515,8 @@ int main(int argc, const char** argv)
 		<< "Primitive type: " << PRIMITIVE_TYPE_NAME(primitiveType) << std::endl
 		<< "Up axis: " << ((confCurrent->UpVector == EUpVector::NegativeY) ? "-Y" : "Z") << std::endl
 		<< "Invert vertex winding: " << (confCurrent->InvertWinding ? "Yes" : "No") << std::endl
-		<< "Flip UV vertically: " << (confCurrent->FlipUVs ? "Yes" : "No") << std::endl;
+		<< "Flip UV vertically: " << (confCurrent->FlipUVs ? "Yes" : "No") << std::endl
+		<< "Bake materials to vertex colors: " << (confCurrent->WriteMaterialColors ? "Yes" : "No") << std::endl;
 
 	uint32_t materialIndex = scene->mMeshes[0]->mMaterialIndex;
 	bool mixedMaterials = false;
@@ -473,10 +527,10 @@ int main(int argc, const char** argv)
 		{
 			mixedMaterials = true;
 		}
-		WriteMesh(file, mesh, *confCurrent);
+		WriteMesh(file, *scene, mesh, *confCurrent);
 	}
 
-	if (mixedMaterials)
+	if (mixedMaterials && !confCurrent->WriteMaterialColors)
 	{
 		std::cout << MESSAGE_MULTIPLE_MATERIALS << std::endl;
 	}
