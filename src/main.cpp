@@ -17,7 +17,8 @@
 #define MESSAGE_HELP \
 "Usage\n" \
 "\n" \
-"  yamc [-h] PATH_IN [PATH_OUT] [-c/-C] [-f] [-i] [-n/-N] [-p] [-t] [-u] [-y] [-z]\n" \
+"  yamc [-h] PATH_IN [PATH_OUT] [-c/-C] [-f] [-i] [-n/-N] [-p] [-t] [-u] [-2]\n" \
+"       [-y] [-z]\n" \
 "\n" \
 "Arguments\n" \
 "\n" \
@@ -38,6 +39,8 @@
 "  -p       = Export 3D vertex positions.\n" \
 "  -t       = Export tangent vectors and bitangent signs.\n" \
 "  -u       = Export texture coordinates. Zero is used if the model has none.\n" \
+"  -2       = Export second texture coordinate layer. Zero is used if the model\n" \
+"             has none.\n" \
 "  -y       = Override output file if it already exists.\n" \
 "  -z       = Convert model to Z-up coordinate system. Uses counter-clockwise\n" \
 "             vertex winding order for backfaces!\n" \
@@ -62,6 +65,7 @@ struct SConfig
 	{
 		WriteNormals = false;
 		WriteTextureCoords = false;
+		WriteTextureCoords2 = false;
 		WriteColors = false;
 		WriteMaterialColors = false;
 		WriteTangents = false;
@@ -75,6 +79,7 @@ struct SConfig
 	{
 		WriteNormals = true;
 		WriteTextureCoords = true;
+		WriteTextureCoords2 = false;
 		WriteColors = false;
 		WriteMaterialColors = true;
 		WriteTangents = false;
@@ -86,6 +91,7 @@ struct SConfig
 
 	bool WriteNormals;
 	bool WriteTextureCoords;
+	bool WriteTextureCoords2;
 	bool WriteColors;
 	bool WriteMaterialColors;
 	bool WriteTangents;
@@ -164,6 +170,7 @@ void WriteMesh(std::ofstream& _file, const aiScene& _scene, const aiMesh& _mesh,
 {
 	bool hasNormals = _mesh.HasNormals();
 	bool hasTextureCoords = _mesh.HasTextureCoords(0);
+	bool hasTextureCoords2 = _mesh.HasTextureCoords(1);
 	bool hasVertexColors = _mesh.HasVertexColors(0);
 	bool hasTangentsAndBitangents = _mesh.HasTangentsAndBitangents();
 	aiVector3D up(0.0f, 1.0f, 0.0f);
@@ -207,6 +214,28 @@ void WriteMesh(std::ofstream& _file, const aiScene& _scene, const aiMesh& _mesh,
 				if (hasTextureCoords)
 				{
 					aiVector3D uv = aiVector3D(_mesh.mTextureCoords[0][i]);
+					if (_conf.FlipUVs)
+					{
+						uv.y = 1.0f - uv.y;
+					}
+					WriteSingle<float>(_file, uv.x);
+					WriteSingle<float>(_file, uv.y);
+					// std::cout << uv.x << ", " << uv.y << ", ";
+				}
+				else
+				{
+					WriteSingle<float>(_file, 0.0f);
+					WriteSingle<float>(_file, 0.0f);
+					// std::cout << 0.0f << ", " << 0.0f << ", ";
+				}
+			}
+
+			// Texture coords 2
+			if (_conf.WriteTextureCoords2)
+			{
+				if (hasTextureCoords2)
+				{
+					aiVector3D uv = aiVector3D(_mesh.mTextureCoords[1][i]);
 					if (_conf.FlipUVs)
 					{
 						uv.y = 1.0f - uv.y;
@@ -400,6 +429,11 @@ int main(int argc, const char** argv)
 				case 'u':
 					confCurrent = &confCustom;
 					confCurrent->WriteTextureCoords = true;
+					break;
+
+				case '2':
+					confCurrent = &confCustom;
+					confCurrent->WriteTextureCoords2 = true;
 					break;
 
 				case 'y':
