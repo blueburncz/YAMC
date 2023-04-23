@@ -63,6 +63,7 @@ struct SConfig
 {
 	void Clear()
 	{
+		WritePositions = false;
 		WriteNormals = false;
 		WriteTextureCoords = false;
 		WriteTextureCoords2 = false;
@@ -77,6 +78,7 @@ struct SConfig
 
 	void Default()
 	{
+		WritePositions = true;
 		WriteNormals = true;
 		WriteTextureCoords = true;
 		WriteTextureCoords2 = false;
@@ -89,6 +91,7 @@ struct SConfig
 		Flags = 0;
 	}
 
+	bool WritePositions;
 	bool WriteNormals;
 	bool WriteTextureCoords;
 	bool WriteTextureCoords2;
@@ -191,11 +194,14 @@ void WriteMesh(std::ofstream& _file, const aiScene& _scene, const aiMesh& _mesh,
 			uint32_t i = face.mIndices[vReal];
 
 			// Position
-			aiVector3D position = Vec3ConvertUp(_mesh.mVertices[i], _conf.UpVector);
-			WriteSingle<float>(_file, position.x);
-			WriteSingle<float>(_file, position.y);
-			WriteSingle<float>(_file, position.z);
-			// std::cout << position.x << ", " << position.y << ", " << position.z << ", ";
+			if (_conf.WritePositions)
+			{
+				aiVector3D position = Vec3ConvertUp(_mesh.mVertices[i], _conf.UpVector);
+				WriteSingle<float>(_file, position.x);
+				WriteSingle<float>(_file, position.y);
+				WriteSingle<float>(_file, position.z);
+				// std::cout << position.x << ", " << position.y << ", " << position.z << ", ";
+			}
 
 			// Normal vectors
 			aiVector3D normal = Vec3ConvertUp(hasNormals ? _mesh.mNormals[i] : up, _conf.UpVector);
@@ -419,6 +425,7 @@ int main(int argc, const char** argv)
 
 				case 'p':
 					confCurrent = &confCustom;
+					confCurrent->WritePositions = true;
 					break;
 
 				case 't':
