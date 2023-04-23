@@ -5,7 +5,10 @@ project(yamc)
 set(CMAKE_CXX_STANDARD 17)
 
 set(SOURCES
+    src/Args.cpp
+    src/Config.cpp
     src/main.cpp
+    src/writing.cpp
     )
 
 find_library(LIBASSIMP
