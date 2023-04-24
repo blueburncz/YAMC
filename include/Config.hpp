@@ -3,6 +3,8 @@
 #include <Args.hpp>
 #include <math.hpp>
 
+#include <cstdint>
+
 struct SConfig
 {
 	void Clear();
