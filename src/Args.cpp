@@ -151,7 +151,7 @@ bool ParseArgs(int _argc, const char** _argv, SArgs& _argsOut)
 	if (_argsOut.ShowHelpAndExit)
 	{
 		std::cout << MESSAGE_HELP << std::endl;
-		return true;
+		return false;
 	}
 
 	if (_argsOut.PathIn == nullptr)
