@@ -26,15 +26,14 @@ etc. See [examples](examples) for little example projects.
 Run `yamc -h` to see help message with all arguments and their description.
 
 # Building from source
-Requires [CMake](https://cmake.org/) 3.23 at least!
+Following commands build yamc binary into a `dist` folder (created automatically).
+*Requires [CMake](https://cmake.org/) 3.23 at least and a C++17 compiler!*
 
 ```sh
 git clone https://github.com/blueburncz/YAMC.git
 cd YAMC
-mkdir build
-cd build
-cmake ..
-cmake --build . --config=Release
+cmake -B build -S .
+cmake --build ./build/ --config=Release
 ```
 
 # Links

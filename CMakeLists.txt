@@ -11,6 +11,8 @@ set(SOURCES
     src/writing.cpp
     )
 
+set(OUTPUT_DIR ${CMAKE_CURRENT_SOURCE_DIR}/dist)
+
 find_library(LIBASSIMP
     NAMES assimp-vc143-mt assimp.5
     PATHS lib/
@@ -22,21 +24,26 @@ target_include_directories(${PROJECT_NAME} PRIVATE include/)
 
 target_link_libraries(${PROJECT_NAME} ${LIBASSIMP})
 
-## Copy files to the build folder
+## Export files to dist folder
+set_target_properties(${PROJECT_NAME} PROPERTIES
+    RUNTIME_OUTPUT_DIRECTORY_DEBUG ${OUTPUT_DIR}
+    RUNTIME_OUTPUT_DIRECTORY_RELEASE ${OUTPUT_DIR}
+    )
+
 # Assimp
 if(WIN32)
     add_custom_command(
         TARGET ${PROJECT_NAME} POST_BUILD
         COMMAND ${CMAKE_COMMAND} -E copy
             ${CMAKE_CURRENT_SOURCE_DIR}/bin/assimp-vc143-mt.dll
-            $<TARGET_PROPERTY:${PROJECT_NAME},BINARY_DIR>
+            ${OUTPUT_DIR}
             )
 elseif(APPLE)
     add_custom_command(
         TARGET ${PROJECT_NAME} POST_BUILD
         COMMAND ${CMAKE_COMMAND} -E copy
             ${CMAKE_CURRENT_SOURCE_DIR}/lib/libassimp.5.dylib
-            $<TARGET_PROPERTY:${PROJECT_NAME},BINARY_DIR>
+            ${OUTPUT_DIR}
             )
 endif()
 
@@ -45,5 +52,5 @@ add_custom_command(
     TARGET ${PROJECT_NAME} POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy
         ${CMAKE_CURRENT_SOURCE_DIR}/bin/LICENSE-Assimp
-        $<TARGET_PROPERTY:${PROJECT_NAME},BINARY_DIR>
+        ${OUTPUT_DIR}
         )
