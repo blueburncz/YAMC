@@ -11,7 +11,7 @@ set(SOURCES
     src/writing.cpp
     )
 
-set(OUTPUT_DIR ${CMAKE_CURRENT_SOURCE_DIR}/dist)
+set(OUTPUT_DIR ${CMAKE_CURRENT_SOURCE_DIR}/dist/)
 
 find_library(LIBASSIMP
     NAMES assimp-vc143-mt assimp.5
@@ -26,6 +26,7 @@ target_link_libraries(${PROJECT_NAME} ${LIBASSIMP})
 
 ## Export files to dist folder
 set_target_properties(${PROJECT_NAME} PROPERTIES
+    RUNTIME_OUTPUT_DIRECTORY ${OUTPUT_DIR}
     RUNTIME_OUTPUT_DIRECTORY_DEBUG ${OUTPUT_DIR}
     RUNTIME_OUTPUT_DIRECTORY_RELEASE ${OUTPUT_DIR}
     )

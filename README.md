@@ -26,7 +26,7 @@ etc. See [examples](examples) for little example projects.
 Run `yamc -h` to see help message with all arguments and their description.
 
 # Building from source
-Following commands build yamc binary into a `dist` folder (created automatically).
+Following commands build yamc binary into folder [dist](dist).
 *Requires [CMake](https://cmake.org/) 3.23 at least and a C++17 compiler!*
 
 ```sh
