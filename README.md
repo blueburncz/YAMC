@@ -18,8 +18,17 @@ using GameMaker's built-in shaders with [lighting](https://manual.yoyogames.com/
 [fog](https://manual.yoyogames.com/GameMaker_Language/GML_Reference/Drawing/GPU_Control/gpu_set_fog.htm)
 etc.
 
+# Features
+* Convert static model into a binary file, easily loadable using functions `buffer_load` and `vertex_create_buffer_from_buffer`.
+* Customizable vertex format. Supports 3D position, normal, texcoord (up to two layers), color and tangent vector with bitangent sign (float4).
+* Invert vertex winding order.
+* Convert to -Y-up (default) or +Z-up space.
+* Generate flat or smooth normals if the model has none.
+* Flip UV coordinates on the Y axis.
+* Bake materials' diffuse colors into vertex colors.
+
 # Limitations
-* The entire model is collapsed into a single vertex buffer, therefore only models with a single texture/material are supported.
+* The entire model is collapsed into a single vertex buffer, therefore it cannot have sub-meshes with different textures/materials/shaders, different vertex formats and different primitive types (the entire model needs to be either point list, line list or a triangle list).
 * Animations are not supported.
 
 # Usage
