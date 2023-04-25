@@ -16,7 +16,7 @@ See file [yamc.gml](utils/yamc.gml) for simple utility functions. The
 custom ones. If you are not familiar with shaders, you can also draw the models
 using GameMaker's built-in shaders with [lighting](https://manual.yoyogames.com/GameMaker_Language/GML_Reference/Drawing/Lighting/Lighting.htm),
 [fog](https://manual.yoyogames.com/GameMaker_Language/GML_Reference/Drawing/GPU_Control/gpu_set_fog.htm)
-etc. See [examples](examples) for little example projects.
+etc.
 
 # Limitations
 * The entire model is collapsed into a single vertex buffer, therefore only models with a single texture/material are supported.
