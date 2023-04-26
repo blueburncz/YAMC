@@ -1,17 +1,18 @@
-/// @macro {Id.VertexFormat} The default vertex format of 3D models. Contains
-/// 3D position, normal, texcoord and color. Do not delete!
+/// @macro {Id.VertexFormat} A vertex format with 3D position, normal, texcoord
+/// and color, in this exact order. Do not delete!
 ///
 /// @example
 /// Following code loads a model from a file "model.bin", using the default
 /// vertex format.
 /// ```gml
-/// model = vertex_buffer_load("model.bin", vertex_format_default);
+/// model = vertex_buffer_load("model.bin", vertex_format_pnuc);
 /// ```
 ///
 /// @see vertex_buffer_load
-#macro vertex_format_default __vertex_format_default()
+#macro vertex_format_pnuc __vertex_format_pnuc()
 
-function __vertex_format_default()
+/// @ignore
+function __vertex_format_pnuc()
 {
 	static _vformat = undefined;
 	if (_vformat == undefined)
@@ -26,21 +27,22 @@ function __vertex_format_default()
 	return _vformat;
 }
 
-/// @macro {Id.VertexFormat} Vertex format for 3D models with tangent and
-/// bitangent vectors. Contains 3D position, normal, texcoord, color and
-/// tangent vector with bitangent sign (float4). Do not delete!
+/// @macro {Id.VertexFormat} Vertex format with 3D position, normal, texcoord,
+/// color and tangent vector with bitangent sign (float4), in this exact order.
+/// Do not delete!
 ///
 /// @example
 /// Following code loads a model from a file "model.bin", using the TBN
 /// vertex format.
 /// ```gml
-/// model = vertex_buffer_load("model.bin", vertex_format_tbn);
+/// model = vertex_buffer_load("model.bin", vertex_format_pnuct);
 /// ```
 ///
 /// @see vertex_buffer_load
-#macro vertex_format_tbn __vertex_format_tbn()
+#macro vertex_format_pnuct __vertex_format_pnuct()
 
-function __vertex_format_tbn()
+/// @ignore
+function __vertex_format_pnuct()
 {
 	static _vformat = undefined;
 	if (_vformat == undefined)
@@ -72,7 +74,7 @@ function __vertex_format_tbn()
 /// and finally frees the model from memory in the Clean Up event.
 /// ```gml
 /// /// @desc Create event
-/// model = vertex_buffer_load("model.bin", vertex_format_default);
+/// model = vertex_buffer_load("model.bin", vertex_format_pnuc);
 ///
 /// /// @desc Draw event
 /// matrix_set(matrix_world, matrix_build(x, y, z, 0, 0, direction, 1, 1, 1));
@@ -83,7 +85,7 @@ function __vertex_format_tbn()
 /// vertex_delete_buffer(model);
 /// ```
 ///
-/// @see vertex_format_default
+/// @see vertex_format_pnuc
 function vertex_buffer_load(_filename, _vformat)
 {
 	gml_pragma("forceinline");
