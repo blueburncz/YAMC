@@ -1,0 +1,13 @@
+{
+  "FolderOrderSettings": [],
+  "ResourceOrderSettings": [
+    {"name":"OModelViewer","order":16,"path":"objects/OModelViewer/OModelViewer.yy",},
+    {"name":"yamc","order":17,"path":"scripts/yamc/yamc.yy",},
+    {"name":"SprSpecular","order":20,"path":"sprites/SprSpecular/SprSpecular.yy",},
+    {"name":"ShBasic","order":18,"path":"shaders/ShBasic/ShBasic.yy",},
+    {"name":"SprNormal","order":19,"path":"sprites/SprNormal/SprNormal.yy",},
+    {"name":"SprGloss","order":21,"path":"sprites/SprGloss/SprGloss.yy",},
+    {"name":"SprDiffuse","order":22,"path":"sprites/SprDiffuse/SprDiffuse.yy",},
+    {"name":"Room1","order":15,"path":"rooms/Room1/Room1.yy",},
+  ],
+}

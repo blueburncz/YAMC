@@ -16,7 +16,7 @@ See file [yamc.gml](utils/yamc.gml) for simple utility functions. The
 custom ones. If you are not familiar with shaders, you can also draw the models
 using GameMaker's built-in shaders with [lighting](https://manual.yoyogames.com/GameMaker_Language/GML_Reference/Drawing/Lighting/Lighting.htm),
 [fog](https://manual.yoyogames.com/GameMaker_Language/GML_Reference/Drawing/GPU_Control/gpu_set_fog.htm)
-etc.
+etc. See [examples](examples) folder for little example projects.
 
 # Features
 * Convert static model into a binary file, easily loadable using functions `buffer_load` and `vertex_create_buffer_from_buffer`.
