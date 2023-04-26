@@ -59,7 +59,7 @@ void main()
 	vec3 specularColor = texture2D(u_texSpecular, v_vTexCoord).rgb;
 	float gloss = texture2D(u_texGloss, v_vTexCoord).x;
 	float specularPower = exp2(10.0 * gloss + 1.0);
-	vec3 N = v_mTBN * normal;
+	vec3 N = normalize(v_mTBN * normal);
 
 	// Accumulate lighting...
 	vec3 V = normalize(u_vCamera - v_vPosition);
