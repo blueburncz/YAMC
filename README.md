@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="Logo.svg" alt="Logo"/>
+  <img src="Logo.svg" height="256px" alt="Logo"/>
 </p>
 
 > Yet Another Model Converter for GameMaker
