@@ -1,12 +1,15 @@
-# YAMC
+<p align="center">
+  <img src="Logo.svg" alt="Logo"/>
+</p>
+
 > Yet Another Model Converter for GameMaker
 
 [![License](https://img.shields.io/github/license/blueburncz/YAMC)](LICENSE)
 [![Discord](https://img.shields.io/discord/298884075585011713?label=Discord)](https://discord.gg/ep2BGPm)
 
 # About
-Yet Another Model Converter (YAMC) is a tiny tool that loads a model from one of
-[many supported file formats](https://github.com/assimp/assimp/blob/master/doc/Fileformats.md)
+Yet Another Model Converter (YAMC, pronounced yam-sea) is a tiny tool that loads
+a model from one of [many supported file formats](https://github.com/assimp/assimp/blob/master/doc/Fileformats.md)
 and exports it into a binary file that can be simply loaded in GameMaker using
 functions [buffer_load](https://manual.yoyogames.com/GameMaker_Language/GML_Reference/Buffers/buffer_load.htm)
 and [vertex_create_buffer_from_buffer](https://manual.yoyogames.com/GameMaker_Language/GML_Reference/Drawing/Primitives/vertex_create_buffer_from_buffer.htm).
