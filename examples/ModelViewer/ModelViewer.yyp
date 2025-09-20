@@ -1,33 +1,34 @@
 {
-  "resourceType": "GMProject",
-  "resourceVersion": "1.7",
-  "name": "ModelViewer",
-  "AudioGroups": [
-    {"resourceType":"GMAudioGroup","resourceVersion":"1.3","name":"audiogroup_default","targets":-1,},
+  "$GMProject":"v1",
+  "%Name":"ModelViewer",
+  "AudioGroups":[
+    {"$GMAudioGroup":"v1","%Name":"audiogroup_default","exportDir":"","name":"audiogroup_default","resourceType":"GMAudioGroup","resourceVersion":"2.0","targets":-1,},
   ],
-  "configs": {
-    "children": [],
-    "name": "Default",
+  "configs":{
+    "children":[],
+    "name":"Default",
   },
-  "defaultScriptType": 1,
-  "Folders": [],
-  "IncludedFiles": [
-    {"resourceType":"GMIncludedFile","resourceVersion":"1.0","name":"cardboard_box.bin","CopyToMask":-1,"filePath":"datafiles/cardboard_box",},
-    {"resourceType":"GMIncludedFile","resourceVersion":"1.0","name":"cardboard_box.fbx","CopyToMask":-1,"filePath":"datafiles/cardboard_box",},
-    {"resourceType":"GMIncludedFile","resourceVersion":"1.0","name":"diffuse.jpeg","CopyToMask":-1,"filePath":"datafiles/cardboard_box",},
-    {"resourceType":"GMIncludedFile","resourceVersion":"1.0","name":"gloss.jpeg","CopyToMask":-1,"filePath":"datafiles/cardboard_box",},
-    {"resourceType":"GMIncludedFile","resourceVersion":"1.0","name":"normal.jpeg","CopyToMask":-1,"filePath":"datafiles/cardboard_box",},
-    {"resourceType":"GMIncludedFile","resourceVersion":"1.0","name":"source.txt","CopyToMask":-1,"filePath":"datafiles/cardboard_box",},
-    {"resourceType":"GMIncludedFile","resourceVersion":"1.0","name":"firetruck.bin","CopyToMask":-1,"filePath":"datafiles/firetruck",},
-    {"resourceType":"GMIncludedFile","resourceVersion":"1.0","name":"firetruck.fbx","CopyToMask":-1,"filePath":"datafiles/firetruck",},
-    {"resourceType":"GMIncludedFile","resourceVersion":"1.0","name":"source.txt","CopyToMask":-1,"filePath":"datafiles/firetruck",},
+  "defaultScriptType":1,
+  "Folders":[],
+  "ForcedPrefabProjectReferences":[],
+  "IncludedFiles":[
+    {"$GMIncludedFile":"","%Name":"cardboard_box.bin","CopyToMask":-1,"filePath":"datafiles/cardboard_box","name":"cardboard_box.bin","resourceType":"GMIncludedFile","resourceVersion":"2.0",},
+    {"$GMIncludedFile":"","%Name":"cardboard_box.fbx","CopyToMask":-1,"filePath":"datafiles/cardboard_box","name":"cardboard_box.fbx","resourceType":"GMIncludedFile","resourceVersion":"2.0",},
+    {"$GMIncludedFile":"","%Name":"diffuse.jpeg","CopyToMask":-1,"filePath":"datafiles/cardboard_box","name":"diffuse.jpeg","resourceType":"GMIncludedFile","resourceVersion":"2.0",},
+    {"$GMIncludedFile":"","%Name":"gloss.jpeg","CopyToMask":-1,"filePath":"datafiles/cardboard_box","name":"gloss.jpeg","resourceType":"GMIncludedFile","resourceVersion":"2.0",},
+    {"$GMIncludedFile":"","%Name":"normal.jpeg","CopyToMask":-1,"filePath":"datafiles/cardboard_box","name":"normal.jpeg","resourceType":"GMIncludedFile","resourceVersion":"2.0",},
+    {"$GMIncludedFile":"","%Name":"source.txt","CopyToMask":-1,"filePath":"datafiles/cardboard_box","name":"source.txt","resourceType":"GMIncludedFile","resourceVersion":"2.0",},
+    {"$GMIncludedFile":"","%Name":"firetruck.bin","CopyToMask":-1,"filePath":"datafiles/firetruck","name":"firetruck.bin","resourceType":"GMIncludedFile","resourceVersion":"2.0",},
+    {"$GMIncludedFile":"","%Name":"firetruck.fbx","CopyToMask":-1,"filePath":"datafiles/firetruck","name":"firetruck.fbx","resourceType":"GMIncludedFile","resourceVersion":"2.0",},
+    {"$GMIncludedFile":"","%Name":"source.txt","CopyToMask":-1,"filePath":"datafiles/firetruck","name":"source.txt","resourceType":"GMIncludedFile","resourceVersion":"2.0",},
   ],
-  "isEcma": false,
-  "LibraryEmitters": [],
-  "MetaData": {
-    "IDEVersion": "2023.2.1.75",
+  "isEcma":false,
+  "LibraryEmitters":[],
+  "MetaData":{
+    "IDEVersion":"2023.2.1.75",
   },
-  "resources": [
+  "name":"ModelViewer",
+  "resources":[
     {"id":{"name":"OModelViewer","path":"objects/OModelViewer/OModelViewer.yy",},},
     {"id":{"name":"yamc","path":"scripts/yamc/yamc.yy",},},
     {"id":{"name":"SprSpecular","path":"sprites/SprSpecular/SprSpecular.yy",},},
@@ -37,10 +38,13 @@
     {"id":{"name":"SprDiffuse","path":"sprites/SprDiffuse/SprDiffuse.yy",},},
     {"id":{"name":"Room1","path":"rooms/Room1/Room1.yy",},},
   ],
-  "RoomOrderNodes": [
+  "resourceType":"GMProject",
+  "resourceVersion":"2.0",
+  "RoomOrderNodes":[
     {"roomId":{"name":"Room1","path":"rooms/Room1/Room1.yy",},},
   ],
-  "TextureGroups": [
-    {"resourceType":"GMTextureGroup","resourceVersion":"1.3","name":"Default","autocrop":true,"border":2,"compressFormat":"bz2","directory":"","groupParent":null,"isScaled":true,"loadType":"default","mipsToGenerate":0,"targets":-1,},
+  "templateType":null,
+  "TextureGroups":[
+    {"$GMTextureGroup":"","%Name":"Default","autocrop":true,"border":2,"compressFormat":"bz2","customOptions":"","directory":"","groupParent":null,"isScaled":true,"loadType":"default","mipsToGenerate":0,"name":"Default","resourceType":"GMTextureGroup","resourceVersion":"2.0","targets":-1,},
   ],
 }

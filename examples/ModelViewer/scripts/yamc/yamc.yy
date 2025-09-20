@@ -1,11 +1,13 @@
 {
-  "resourceType": "GMScript",
-  "resourceVersion": "1.0",
-  "name": "yamc",
-  "isCompatibility": false,
-  "isDnD": false,
-  "parent": {
-    "name": "ModelViewer",
-    "path": "ModelViewer.yyp",
+  "$GMScript":"v1",
+  "%Name":"yamc",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"yamc",
+  "parent":{
+    "name":"ModelViewer",
+    "path":"ModelViewer.yyp",
   },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
 }
