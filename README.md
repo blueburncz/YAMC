@@ -9,6 +9,7 @@
 
 ## Table of Contents
 
+* [Status](#status-community-project-)
 * [About](#about)
 * [Features](#features)
 * [Limitations](#limitations)
@@ -16,6 +17,10 @@
 * [Building from source](#building-from-source)
 * [Logo terms of use](#logo-terms-of-use)
 * [Links](#links)
+
+## Status: Community Project 💙
+
+This is a community-developed project, released under **CC0 1.0 Universal (Public Domain)**. It is **no longer actively maintained** by the original author. Feel free to fork, modify, or experiment.
 
 ## About
 
